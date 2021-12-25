@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav
-      style={{
-        display: "flex",
-        height: "85px",
-        alignItems: "center",
-        justifyContent: "space-around",
-        margin: "10px 0px 20px",
-      }}
-    >
-      <div>
+    <nav>
+      <div
+        style={{
+          display: "flex",
+          height: "85px",
+          alignItems: "center",
+          justifyContent: "space-around",
+          margin: "10px 0px 20px",
+        }}
+      >
         <Link to="/">
           <div
             style={{
