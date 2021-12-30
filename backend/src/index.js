@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
+const db = require("./db/db");
 
 const port = 4000;
+
+//database connection
+db();
 
 // middleware
 app.use(express.json());
