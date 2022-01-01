@@ -1,4 +1,4 @@
-import { ACTION, ACTION_SUCCESS, ACTION_ERROR } from "./actions";
+import { ACTION, ACTION_SUCCESS, ACTION_ERROR } from "../actions/dataActions";
 
 const initialState = {
   data: {},
