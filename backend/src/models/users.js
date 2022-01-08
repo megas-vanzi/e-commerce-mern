@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -15,11 +15,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  isAdmin: [
-    {
-      type: Boolean,
-    },
-  ],
+  isAdmin: {
+    type: Boolean,
+  },
 });
 
 module.exports = model("Users", UserSchema);
