@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const CartSchema = new Schema({
+const itemSchema = new Schema({
   precio: {
     type: String,
   },
@@ -12,4 +12,18 @@ const CartSchema = new Schema({
   },
 });
 
-module.exports = model("Cart", CartSchema);
+const cartSchema = new Schema({
+  items: [itemSchema],
+});
+
+module.exports = model("Cart", cartSchema);
+
+const childSchema = new Schema({ name: "string" });
+
+const parentSchema = new Schema({
+  // Array of subdocuments
+  children: [childSchema],
+  // Single nested subdocuments. Caveat: single nested subdocs only work
+  // in mongoose >= 4.2.0
+  child: childSchema,
+});
