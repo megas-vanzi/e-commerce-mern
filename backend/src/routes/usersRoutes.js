@@ -1,6 +1,7 @@
-const { Router } = require("express");
-const router = Router();
+import routerx from "express-promise-router";
 const { register, login, logout } = require("../controllers/usersController");
+
+const router = routerx();
 
 router.post("/register", register);
 
