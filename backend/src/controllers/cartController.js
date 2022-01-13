@@ -4,8 +4,9 @@ const { Cart } = models;
 export default {
   addCart: async (req, res, next) => {
     try {
-      const reg = await Cart.create(req.body);
-      res.status(200).json(reg);
+      const createCart = await Cart.create(req.body);
+      console.log(createCart);
+      res.status(200).json(createCart);
     } catch (e) {
       res.status(500).send({
         message: "Error al intentar crear Carrito",
@@ -15,17 +16,28 @@ export default {
   },
   listCart: async (req, res, next) => {
     try {
-    } catch (e) {}
+      const userCart = await Cart.find({
+        user: req.params.userId,
+      });
+      console.log(userCart);
+      res.status(200).json(userCart);
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar listar Carrito",
+      });
+      next(e);
+    }
   },
   editCart: async (req, res, next) => {
     try {
-      const { user, items } = req.body;
-      const userCartEdit = await Cart.user.findAndUpdate(
-        { user },
+      const { items } = req.body;
+      const userCartEdit = await Cart.findAndUpdate(
+        { user: req.params.userId },
         {
           items,
         }
       );
+      console.log(userCartEdit);
       res.status(200).json(userCartEdit);
     } catch (e) {
       res.status(500).send({
@@ -36,6 +48,16 @@ export default {
   },
   deleteCart: async (req, res, next) => {
     try {
-    } catch (e) {}
+      const userCartDelete = await Cart.findAndDelete({
+        user: req.params.userId,
+      });
+      console.log(userCartDelete);
+      res.status(200).json(userCartDelete);
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar eliminar Carrito",
+      });
+      next(e);
+    }
   },
 };
