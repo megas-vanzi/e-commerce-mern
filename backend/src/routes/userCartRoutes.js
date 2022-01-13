@@ -1,5 +1,5 @@
 import routerx from "express-promise-router";
-import userController from "../controllers/user.controller";
+import userController from "../controllers/userCartController";
 
 const router = routerx();
 
@@ -11,12 +11,12 @@ router.put("/:id", userController.editUser);
 
 router.delete("/:id", userController.deleteUser);
 
-router.post("/:idUser/cart", userController.addCart);
+router.post("/cart/:idUser", userController.addCart);
 
-router.get("/:idUser/cart", userController.listCart);
+router.get("/cart/:idUser", userController.listCart);
 
-router.put("/:idUser/cart", userController.editCart);
+router.put("/cart/:idUser", userController.editCart);
 
-router.delete("/:idUser/cart", userController.deleteCart);
+router.delete("/cart/:idUser", userController.deleteCart);
 
 export default router;

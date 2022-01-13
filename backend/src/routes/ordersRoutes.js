@@ -3,7 +3,7 @@ import {
   getOrders,
   getUserOrders,
   getOrder,
-  changeOrder,
+  deleteOrder,
 } from "../controllers/ordersController";
 
 const router = routerx();
@@ -14,6 +14,6 @@ router.get("/users/:id/orders", getUserOrders);
 
 router.put("/orders/:id", getOrder);
 
-router.delete("/orders/:id", changeOrder);
+router.delete("/orders/:id", deleteOrder);
 
 export default router;
