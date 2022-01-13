@@ -1,22 +1,29 @@
+import models from "../models/models";
+const { Cart, Order } = models;
+
 export default {
+  addOrder: async (req, res, next) => {
+    try {
+    } catch (e) {}
+  },
   getOrders: async (req, res, next) => {
     try {
-      //TODO
     } catch (e) {}
   },
   getUserOrders: async (req, res, next) => {
     try {
-      //TODO
     } catch (e) {}
   },
   getOrder: async (req, res, next) => {
     try {
-      //TODO
     } catch (e) {}
   },
   changeOrder: async (req, res, next) => {
     try {
-      //TODO
+    } catch (e) {}
+  },
+  deleteOrder: async (req, res, next) => {
+    try {
     } catch (e) {}
   },
 };

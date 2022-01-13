@@ -1,12 +1,16 @@
 import routerx from "express-promise-router";
-const { register, login, logout } = require("../controllers/usersController");
+import userController from "../controllers/usersController";
 
 const router = routerx();
 
-router.post("/register", register);
+router.post("/", userController.addUser);
 
-router.post("/login", login);
+router.post("/register", userController.register);
 
-router.delete("/logout", logout);
+router.get("/", userController.listUsers);
+
+router.put("/:id", userController.editUser);
+
+router.delete("/:id", userController.deleteUser);
 
 module.exports = router;

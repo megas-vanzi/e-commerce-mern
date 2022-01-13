@@ -1,14 +1,14 @@
-const router = require("express").Router();
-const users = require("./usersRoutes");
+import routerx from "express-promise-router";
+import usersRouter from "./usersRoutes";
+import cartRouter from "./cartRoutes";
+import ordersRouter from "./ordersRoutes";
 
-// require
-// controllers
+const router = routerx();
 
-router.post("/");
-router.get("/");
-router.put("/:id");
-router.delete("/:id");
+router.use("/users", usersRouter);
 
-router.use(users);
+router.use("/cart", cartRouter);
 
-module.exports = router;
+router.use("/orders", ordersRouter);
+
+export default router;
