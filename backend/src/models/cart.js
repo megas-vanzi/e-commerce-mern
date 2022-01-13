@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import mongoose, { Schema } from "mongoose";
 
 const itemSchema = new Schema({
   precio: {
@@ -15,7 +15,13 @@ const itemSchema = new Schema({
 });
 
 const cartSchema = new Schema({
+  user: {
+    type: String,
+    required: true,
+  },
   items: [itemSchema],
 });
 
-module.exports = model("cart", cartSchema);
+const Cart = mongoose.model("cart", cartSchema);
+
+export default Cart;

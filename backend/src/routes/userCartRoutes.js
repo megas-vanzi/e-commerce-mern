@@ -3,13 +3,13 @@ import userController from "../controllers/user.controller";
 
 const router = routerx();
 
-router.post("/", userController.add);
+router.post("/", userController.addUser);
 
-router.get("/", userController.list);
+router.get("/", userController.listUsers);
 
-router.put("/:id", userController.editById);
+router.put("/:id", userController.editUser);
 
-router.delete("/:id", userController.deleteByName);
+router.delete("/:id", userController.deleteUser);
 
 router.post("/:idUser/cart", userController.addCart);
 
