@@ -68,6 +68,43 @@ export default {
       next(e);
     }
   },
+  promoteOrder: async (req, res, next) => {
+    const findOrderById = await Order.findById(req.params.id);
+    const estado = findOrderById.estado;
+    console.log(estado);
+    let variable;
+    switch (estado) {
+      case "creada":
+        variable = "pagada";
+        break;
+      case "pagada":
+        variable = "enviada";
+        break;
+      case "enviada":
+        variable = "recibida";
+        break;
+
+      default:
+        false;
+    }
+
+    try {
+      const orderEdit = await Order.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          estado: variable,
+        }
+      );
+      console.log(orderEdit);
+      res.status(200).json(orderEdit);
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar promocionar Orden",
+      });
+      next(e);
+    }
+  },
+
   deleteOrder: async (req, res, next) => {
     try {
       const orderDelete = await Order.findByIdAndDelete({ _id: req.body._id });
