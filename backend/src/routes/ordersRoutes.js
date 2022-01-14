@@ -1,25 +1,20 @@
 import routerx from "express-promise-router";
-import {
-  addOrder,
-  getOrders,
-  getUserOrders,
-  getOrder,
-  changeOrder,
-  deleteOrder,
-} from "../controllers/ordersController";
+import orderController from "../controllers/ordersController";
 
 const router = routerx();
 
-router.post("/orders", addOrder);
+router.post("/", orderController.addOrder);
 
-router.get("/orders", getOrders);
+router.get("/", orderController.getOrders);
 
-router.get("/orders/user/:id", getUserOrders);
+router.get("/user/:userId", orderController.getUserOrders);
 
-router.get("/orders/:id", getOrder);
+router.get("/:id", orderController.getOrder);
 
-router.put("/orders/:id", changeOrder);
+router.put("/:id", orderController.changeOrder);
 
-router.delete("/orders/:id", deleteOrder);
+router.post("/promote/:id", orderController.promoteOrder);
+
+router.delete("/:id", orderController.deleteOrder);
 
 export default router;
