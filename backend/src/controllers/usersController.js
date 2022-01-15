@@ -76,4 +76,14 @@ export default {
       next(e);
     }
   },
+  resetUserPassword: async (req, res, next) => {
+    try {
+      // TO DO
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar eliminar usuario",
+      });
+      next(e);
+    }
+  },
 };
