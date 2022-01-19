@@ -16,16 +16,26 @@ export default {
             const token = jwt.sign({ user: user }, "secret", {
               expiresIn: "1h",
             });
-            res.json({ token, id: req.session._id, name: req.session.name });
+            res
+              .status(200)
+              .json({ token, id: req.session._id, name: req.session.name });
           } else {
-            res.json({ error: "Invalid data" });
+            res.status(500).send({
+              message:
+                "Error al intentar autenticar Usuario, verifique su contraseña",
+            });
           }
         });
       } else {
-        res.json({ error: "Invalid data" });
+        res.status(500).send({
+          message: "Usuario no encontrado, verifique sus credenciales",
+        });
       }
-    } catch (error) {
-      res.json({ error: error.message });
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar loguear Usuario",
+      });
+      next(e);
     }
   },
   logout: (req, res) => {
@@ -37,20 +47,29 @@ export default {
   },
   loggedUser: async (req, res, next) => {
     try {
-      // TO DO
+      const user = await User.findById(req.session._id);
+      console.log(user);
+      res.status(200).json(user);
     } catch (e) {
       res.status(500).send({
-        message: "Error",
+        message: "Error al intentar ver Usuario",
       });
       next(e);
     }
   },
   promoteUser: async (req, res, next) => {
     try {
-      // TO DO
+      const promote = await Order.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          isAdmin: true,
+        }
+      );
+      console.log(promote);
+      res.status(200).json(promote);
     } catch (e) {
       res.status(500).send({
-        message: "Error",
+        message: "Error al intentar promocionar Usuario",
       });
       next(e);
     }
