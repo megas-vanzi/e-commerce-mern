@@ -3,7 +3,7 @@ const { response } = require("express");
 const isAdmin = (req, res = response, next) => {
   if (!req.usuario) {
     return res.status(500).json({
-      msg: "Debe validar usuario con token",
+      msg: "Error: debe validar usuario con token",
     });
   }
 
@@ -11,7 +11,7 @@ const isAdmin = (req, res = response, next) => {
 
   if (isAdmin === false) {
     return res.status(401).json({
-      msg: `${username} no es Admin - No puede hacer esto`,
+      msg: `Error: ${username} no es Admin - No puede hacer esto`,
     });
   }
 

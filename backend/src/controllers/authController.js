@@ -30,9 +30,13 @@ export default {
           if (result) {
             req.session._id = user._id;
             req.session.name = user.username;
-            const token = jwt.sign({ user: user }, "secret", {
-              expiresIn: "1h",
-            });
+            const token = jwt.sign(
+              { user: user },
+              process.env.SECRETORPRIVATEKEY,
+              {
+                expiresIn: "3h",
+              }
+            );
             res
               .status(200)
               .json({ token, id: req.session._id, name: req.session.name });
