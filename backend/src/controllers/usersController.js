@@ -12,11 +12,14 @@ export default {
     const user = new Users({
       username,
       email,
-      password: bcrypt.hashSync(password, 10),
+      password: hashedPass,
     });
     try {
-      await user.save();
+      const reg = await User.create(user);
+      console.log(reg);
+
       res.json({ status: true, msg: "User created successfully" });
+      res.status(200).json(reg);
     } catch (error) {
       res.json({ status: false, msg: "Username or email already registered" });
     }
