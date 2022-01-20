@@ -1,20 +1,29 @@
 import routerx from "express-promise-router";
 import orderController from "../controllers/ordersController";
+import authController from "../controllers/authController";
 
 const router = routerx();
 
-router.post("/", orderController.addOrder);
+router.post("/", authController.userAuth, orderController.addOrder);
 
-router.get("/", orderController.getOrders);
+router.get("/", authController.userAuth, orderController.getOrders);
 
-router.get("/user/:userId", orderController.getUserOrders);
+router.get(
+  "/user/:userId",
+  authController.userAuth,
+  orderController.getUserOrders
+);
 
-router.get("/:id", orderController.getOrder);
+router.get("/:id", authController.userAuth, orderController.getOrder);
 
-router.put("/:id", orderController.changeOrder);
+router.put("/:id", authController.userAuth, orderController.changeOrder);
 
-router.post("/promote/:id", orderController.promoteOrder);
+router.post(
+  "/promote/:id",
+  authController.userAuth,
+  orderController.promoteOrder
+);
 
-router.delete("/:id", orderController.deleteOrder);
+router.delete("/:id", authController.userAuth, orderController.deleteOrder);
 
 export default router;

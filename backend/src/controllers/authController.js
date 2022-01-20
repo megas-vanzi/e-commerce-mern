@@ -2,9 +2,26 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 import models from "../models/models";
 const { User } = models;
+const passport = require("passport");
 
 export default {
-  login: async (req, res) => {
+  authGithub: passport.authenticate("github", {
+    successRedirect: "/",
+    failureRedirect: "/register",
+  }),
+  authGoogle: passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/register",
+  }),
+  userAuth: (req, res, next) => {
+    // if auth, ok
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    // if not, redirect
+    return res.redirect("/login");
+  },
+  login: async (req, res, next) => {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({ email });
@@ -38,11 +55,16 @@ export default {
       next(e);
     }
   },
-  logout: (req, res) => {
+  logout: (req, res, next) => {
     try {
-      // TO DO
-    } catch (error) {
-      res.json("Error logout");
+      req.session.destroy(() => {
+        res.redirect("/login");
+      });
+    } catch (e) {
+      res.status(500).send({
+        message: "Error de logout",
+      });
+      next(e);
     }
   },
   loggedUser: async (req, res, next) => {
