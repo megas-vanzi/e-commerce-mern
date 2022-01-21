@@ -37,9 +37,7 @@ export default {
                 expiresIn: "3h",
               }
             );
-            res
-              .status(200)
-              .json({ token, id: req.session._id, name: req.session.name });
+            res.status(200).json({ token, id: user._id, name: user.username });
           } else {
             res.status(500).send({
               message:
@@ -61,8 +59,9 @@ export default {
   },
   logout: (req, res, next) => {
     try {
-      req.session.destroy(() => {
-        res.redirect("/login");
+      req.session.destroy();
+      res.status(200).send({
+        message: "Logout exitoso",
       });
     } catch (e) {
       res.status(500).send({

@@ -1,4 +1,3 @@
-const Users = require("../models/users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 import models from "../models/models";
@@ -9,17 +8,16 @@ export default {
     const { username, email, password } = req.body;
     const hashedPass = bcrypt.hashSync(password, 10);
     console.log(hashedPass);
-    const user = new Users({
-      username,
-      email,
-      password: hashedPass,
-    });
     try {
-      const reg = await User.create(user);
+      const reg = await User.create({
+        username,
+        email,
+        password: hashedPass,
+      });
       console.log(reg);
-
-      res.json({ status: true, msg: "User created successfully" });
-      res.status(200).json(reg);
+      res
+        .status(200)
+        .json({ status: true, msg: `User ${username} created successfully` });
     } catch (error) {
       res.json({ status: false, msg: "Username or email already registered" });
     }

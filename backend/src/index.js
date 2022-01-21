@@ -2,7 +2,6 @@ import app from "./app";
 import dotenv from "dotenv";
 import { connect } from "./db/db";
 
-const session = require("express-session");
 const passport = require("./config/passport");
 
 //iniciar dotenv para obtener las variables de entorno
@@ -22,13 +21,6 @@ const startServer = async (app, PORT) => {
 
 startServer(app, PORT);
 
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 /*
 app.use(passport.initialize());
 app.use(passport.session);
