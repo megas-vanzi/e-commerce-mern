@@ -2,9 +2,10 @@ var passport = require("passport");
 var GitHubStrategy = require("passport-github2").Strategy;
 
 var User = require("../models/users");
-var config = require("../_config");
-var init = require("./init");
+//var config = require("../_config");
+//var init = require("./init");
 
+/*
 passport.use(
   new GitHubStrategy(
     {
@@ -43,11 +44,14 @@ passport.use(
   )
 );
 
+
 // serialize user into the session
 init();
+*/
 
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
+/*
 passport.use(
   new GoogleStrategy(
     {
@@ -62,5 +66,6 @@ passport.use(
     }
   )
 );
+*/
 
 module.exports = passport;

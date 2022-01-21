@@ -1,21 +1,26 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const mongoose = require("mongoose");
-const db = require("./db/db");
+import app from "./app";
+import dotenv from "dotenv";
+import { connect } from "./db/db";
 
 const session = require("express-session");
 const passport = require("./config/passport");
 
-const port = 4000;
+//iniciar dotenv para obtener las variables de entorno
+dotenv.config();
 
-//database connection
-db();
+const PORT = process.env.PORT || 4000;
 
-// middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const startServer = async (app, PORT) => {
+  await connect()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`Server on port: ${PORT}`);
+      });
+    })
+    .catch(console.log);
+};
+
+startServer(app, PORT);
 
 app.use(
   session({
@@ -24,10 +29,7 @@ app.use(
     saveUninitialized: false,
   })
 );
-
+/*
 app.use(passport.initialize());
 app.use(passport.session);
-
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
+*/

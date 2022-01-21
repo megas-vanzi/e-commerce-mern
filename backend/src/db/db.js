@@ -1,12 +1,18 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const connectionDB = async () => {
-  try {
-    const db = await mongoose.connect("mongodb://localhost:27017/dashboard");
-    console.log(`Successful connection with db ${db.connection.name}`);
-  } catch (error) {
-    console.log(error);
-  }
+dotenv.config();
+
+const DB_URL = process.env.DB_URL;
+
+export const connect = async () => {
+  await mongoose
+    .connect(DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((mongoose) =>
+      console.log(`conectado a la BD, puerto:`, mongoose.connections[0].port)
+    )
+    .catch(console.log);
 };
-
-module.exports = connectionDB;
