@@ -7,8 +7,12 @@ router.post("/login", authController.login);
 
 router.post("/logout", authController.logout);
 
-router.get("/me", authController.loggedUser);
+router.get("/me", authController.userAuth, authController.loggedUser);
 
-router.post("/promote/:id", authController.promoteUser);
+router.post(
+  "/promote/:id",
+  authController.adminAuth,
+  authController.promoteUser
+);
 
 module.exports = router;

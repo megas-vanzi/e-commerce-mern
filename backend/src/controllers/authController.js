@@ -13,6 +13,14 @@ export default {
     successRedirect: "/",
     failureRedirect: "/register",
   }),
+  adminAuth: (req, res, next) => {
+    // if admin auth, ok
+    if (req.usuario.isAdmin) {
+      return next();
+    }
+    // if not, redirect
+    return res.redirect("/");
+  },
   userAuth: (req, res, next) => {
     // if auth, ok
     if (req.isAuthenticated()) {

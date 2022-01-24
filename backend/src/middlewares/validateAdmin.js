@@ -1,6 +1,6 @@
 const { response } = require("express");
 
-const isAdmin = (req, res = response, next) => {
+const validateAdmin = (req, res = response, next) => {
   if (!req.usuario) {
     return res.status(500).json({
       msg: "Error: debe validar usuario con token",
@@ -18,4 +18,4 @@ const isAdmin = (req, res = response, next) => {
   next();
 };
 
-module.exports = { isAdmin };
+module.exports = { validateAdmin };
