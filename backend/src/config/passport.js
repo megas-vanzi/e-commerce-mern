@@ -5,6 +5,40 @@ var User = require("../models/users");
 //var config = require("../_config");
 //var init = require("./init");
 
+// USING LOCAL STRATEGY
+/*
+var LocalStrategy = require('passport-local');
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username }, (err, user) => {
+      if (err) { 
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: "Incorrect password" });
+      }
+      return done(null, user);
+    });
+  })
+);
+*/
+
+// SERIALIZATION FOR SESSIONS (WITH COOKIES)
+/*
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+*/
+
 /*
 passport.use(
   new GitHubStrategy(
