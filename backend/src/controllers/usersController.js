@@ -106,22 +106,36 @@ export default {
       }
     } catch (e) {
       res.status(500).send({
-        message: "Error al intentar editar usuario",
+        message: "Error al intentar editar contraseña",
       });
       next(e);
     }
   },
   resetUserPassword: async (req, res, next) => {
     try {
+      const { _id } = req.params;
       // Random String
       let newRandomPass = Math.random().toString(36).slice(2);
       // Random Case
       newRandomPass = Array.from(newRandomPass)
         .map((x) => (Math.random() > 0.5 ? x.toUpperCase() : x.toLowerCase()))
         .join("");
+      console.log(newRandomPass);
+      const hashedResetPass = bcrypt.hashSync(newRandomPass, 10);
+      const userEdit = await User.findByIdAndUpdate(
+        { _id },
+        {
+          password: hashedResetPass,
+        }
+      );
+      console.log(userEdit);
+      // SEND EMAIL with newRandomPass
+      res.status(200).send({
+        message: "Contraseña reseteada correctamente",
+      });
     } catch (e) {
       res.status(500).send({
-        message: "Error al intentar eliminar usuario",
+        message: "Error al intentar resetear contraseña",
       });
       next(e);
     }
