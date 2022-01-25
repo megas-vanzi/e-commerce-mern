@@ -77,9 +77,48 @@ export default {
       next(e);
     }
   },
+  editPassword: async (req, res, next) => {
+    const { oldPassword, newPassword } = req.body;
+    const { _id } = req.params;
+    const hashedNewPass = bcrypt.hashSync(newPassword, 10);
+    try {
+      const user = await User.findOne({ _id });
+      if (user) {
+        bcrypt.compare(oldPassword, user.password, (err, result) => {
+          if (result) {
+            const userEdit = await User.findByIdAndUpdate(
+              { _id },
+              {
+                password: hashedNewPass,
+              }
+            );
+            console.log(userEdit);
+            res.status(200).send({
+              message: "Contraseña modificada correctamente",
+            });
+          } else {
+            res.status(500).send({
+              message:
+                "Error al modificar contraseña, ingrese su contraseña actual",
+            });
+          }
+        });
+      }
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar editar usuario",
+      });
+      next(e);
+    }
+  },
   resetUserPassword: async (req, res, next) => {
     try {
-      // TO DO
+      // Random String
+      let newRandomPass = Math.random().toString(36).slice(2);
+      // Random Case
+      newRandomPass = Array.from(newRandomPass)
+        .map((x) => (Math.random() > 0.5 ? x.toUpperCase() : x.toLowerCase()))
+        .join("");
     } catch (e) {
       res.status(500).send({
         message: "Error al intentar eliminar usuario",
