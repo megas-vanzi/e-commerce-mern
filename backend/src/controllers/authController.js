@@ -13,22 +13,6 @@ export default {
     successRedirect: "/",
     failureRedirect: "/register",
   }),
-  adminAuth: (req, res, next) => {
-    // if admin auth, ok
-    if (req.usuario.isAdmin) {
-      return next();
-    }
-    // if not, redirect
-    return res.redirect("/");
-  },
-  userAuth: (req, res, next) => {
-    // if auth, ok
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    // if not, redirect
-    return res.redirect("/login");
-  },
   login: async (req, res, next) => {
     const { email, password } = req.body;
     try {
@@ -45,6 +29,7 @@ export default {
                 expiresIn: "3h",
               }
             );
+            req.session.token = token;
             res.status(200).json({ token, id: user._id, name: user.username });
           } else {
             res.status(500).send({
@@ -92,7 +77,7 @@ export default {
   },
   promoteUser: async (req, res, next) => {
     try {
-      const promote = await Order.findByIdAndUpdate(
+      const promote = await User.findByIdAndUpdate(
         { _id: req.params.id },
         {
           isAdmin: true,

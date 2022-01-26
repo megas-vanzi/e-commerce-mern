@@ -46,6 +46,25 @@ export default {
       next(e);
     }
   },
+  editSelf: async (req, res, next) => {
+    const { username, email } = req.body;
+    try {
+      const userEdit = await User.findByIdAndUpdate(
+        { _id: req.session._id },
+        {
+          username,
+          email,
+        }
+      );
+      console.log(userEdit);
+      res.status(200).json(userEdit);
+    } catch (e) {
+      res.status(500).send({
+        message: "Error al intentar editar usuario",
+      });
+      next(e);
+    }
+  },
   editUser: async (req, res, next) => {
     const { _id, username, email } = req.body;
     try {
@@ -84,7 +103,7 @@ export default {
     try {
       const user = await User.findOne({ _id });
       if (user) {
-        bcrypt.compare(oldPassword, user.password, (err, result) => {
+        bcrypt.compare(oldPassword, user.password, async (err, result) => {
           if (result) {
             const userEdit = await User.findByIdAndUpdate(
               { _id },
