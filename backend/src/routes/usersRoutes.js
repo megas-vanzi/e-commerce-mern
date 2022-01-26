@@ -1,23 +1,30 @@
 import routerx from "express-promise-router";
-import userController from "../controllers/usersController";
-import authController from "../controllers/authController";
-
+import usersController from "../controllers/usersController";
+import { validateJWT } from "../middlewares/validateJWT";
+import { validateAdmin } from "../middlewares/validateAdmin";
 const router = routerx();
+const {
+  register,
+  listUsers,
+  editSelf,
+  editUser,
+  deleteUser,
+  editPassword,
+  resetUserPassword,
+} = usersController;
 
-router.post("/", userController.register);
+router.post("/", register);
 
-router.get("/", authController.adminAuth, userController.listUsers);
+router.get("/", validateJWT, validateAdmin, listUsers);
 
-router.put("/:id", authController.userAuth, userController.editUser);
+router.put("/", validateJWT, editSelf);
 
-router.delete("/:id", authController.adminAuth, userController.deleteUser);
+router.put("/:id", validateJWT, validateAdmin, editUser);
 
-router.put(
-  "/passwordEdit/:id",
-  authController.userAuth,
-  userController.editPassword
-);
+router.delete("/:id", validateJWT, validateAdmin, deleteUser);
 
-router.post("/passwordReset/:id", userController.resetUserPassword);
+router.put("/passwordEdit/:id", validateJWT, editPassword);
+
+router.post("/passwordReset/:id", resetUserPassword);
 
 module.exports = router;

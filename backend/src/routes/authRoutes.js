@@ -1,19 +1,16 @@
 import routerx from "express-promise-router";
 import authController from "../controllers/authController";
 import { validateJWT } from "../middlewares/validateJWT";
-
+import { validateAdmin } from "../middlewares/validateAdmin";
 const router = routerx();
+const { login, logout, loggedUser, promoteUser } = authController;
 
-router.post("/login", authController.login);
+router.post("/login", login);
 
-router.post("/logout", authController.logout);
+router.post("/logout", logout);
 
-router.get("/me", validateJWT, authController.loggedUser);
+router.get("/me", validateJWT, loggedUser);
 
-router.post(
-  "/promote/:id",
-  authController.adminAuth,
-  authController.promoteUser
-);
+router.put("/promote/:id", validateJWT, validateAdmin, promoteUser);
 
 module.exports = router;
