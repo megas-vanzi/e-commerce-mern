@@ -1,10 +1,10 @@
 const { response, request } = require("express");
 const jwt = require("jsonwebtoken");
-
-const User = require("../models/users");
+import models from "../models/models";
+const { User } = models;
 
 const validateJWT = async (req = request, res = response, next) => {
-  const token = req.header("x-token");
+  const token = req.session.token;
 
   if (!token) {
     return res.status(401).json({
