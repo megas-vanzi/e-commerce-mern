@@ -17,6 +17,7 @@ router.post("/", validateJWT, addOrder);
 
 router.get("/", validateJWT, validateAdmin, getOrders);
 
+//agregar GET /user (req.session._id)
 router.get("/user/:userId", validateJWT, validateAdmin, getUserOrders);
 
 router.get("/:id", validateJWT, validateAdmin, getOrder);

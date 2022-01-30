@@ -22,18 +22,6 @@ export default {
       res.json({ status: false, msg: "Username or email already registered" });
     }
   },
-  addUser: async (req, res, next) => {
-    try {
-      const reg = await User.create(req.body);
-      console.log(reg);
-      res.status(200).json(reg);
-    } catch (e) {
-      res.status(500).send({
-        message: "Error al intentar crear usuario",
-      });
-      next(e);
-    }
-  },
   listUsers: async (req, res, next) => {
     try {
       const users = await User.find();
@@ -66,10 +54,10 @@ export default {
     }
   },
   editUser: async (req, res, next) => {
-    const { _id, username, email } = req.body;
+    const { username, email } = req.body;
     try {
       const userEdit = await User.findByIdAndUpdate(
-        { _id },
+        { _id: req.params.id },
         {
           username,
           email,
@@ -86,7 +74,7 @@ export default {
   },
   deleteUser: async (req, res, next) => {
     try {
-      const userDelete = await User.findByIdAndDelete({ _id: req.body._id });
+      const userDelete = await User.findByIdAndDelete({ _id: req.params.id });
       console.log(userDelete);
       res.status(200).json(userDelete);
     } catch (e) {

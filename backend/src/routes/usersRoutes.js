@@ -19,7 +19,7 @@ router.get("/", validateJWT, validateAdmin, listUsers);
 
 router.put("/", validateJWT, editSelf);
 
-router.put("/:id", validateJWT, validateAdmin, editUser);
+router.put("/query/:id", validateJWT, validateAdmin, editUser);
 
 router.delete("/:id", validateJWT, validateAdmin, deleteUser);
 
