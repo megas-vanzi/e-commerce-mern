@@ -2,6 +2,8 @@ import routerx from "express-promise-router";
 import usersController from "../controllers/usersController";
 import { validateJWT } from "../middlewares/validateJWT";
 import { validateAdmin } from "../middlewares/validateAdmin";
+import { validateForm } from "../middlewares/validateForm";
+const { check } = require("express-validator");
 const router = routerx();
 const {
   register,
@@ -13,7 +15,18 @@ const {
   resetUserPassword,
 } = usersController;
 
-router.post("/", register);
+router.post(
+  "/",
+  [
+    check("username", "Username required").not().isEmpty(),
+    check("email", "Email required").isEmail(),
+    check("password", "Password must have at least 6 characters").isLength({
+      min: 6,
+    }),
+    validateForm,
+  ],
+  register
+);
 
 router.get("/", validateJWT, validateAdmin, listUsers);
 

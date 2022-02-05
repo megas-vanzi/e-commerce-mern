@@ -7,7 +7,6 @@ export default {
   register: async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPass = bcrypt.hashSync(password, 10);
-    console.log(hashedPass);
     try {
       const reg = await User.create({
         username,
@@ -19,7 +18,12 @@ export default {
         .status(200)
         .json({ status: true, msg: `User ${username} created successfully` });
     } catch (error) {
-      res.json({ status: false, msg: "Username or email already registered" });
+      res.json({
+        status: false,
+        username: error.keyValue.username,
+        email: error.keyValue.email,
+        msg: `Already registered`,
+      });
     }
   },
   listUsers: async (req, res, next) => {
