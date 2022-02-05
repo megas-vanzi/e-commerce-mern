@@ -30,13 +30,32 @@ router.post(
 
 router.get("/", validateJWT, validateAdmin, listUsers);
 
-router.put("/", validateJWT, editSelf);
+router.put(
+  "/",
+  validateJWT,
+  [
+    check("username", "Username required").not().isEmpty(),
+    check("email", "Email required").isEmail(),
+    validateForm,
+  ],
+  editSelf
+);
 
 router.put("/query/:id", validateJWT, validateAdmin, editUser);
 
 router.delete("/:id", validateJWT, validateAdmin, deleteUser);
 
-router.put("/passwordEdit/:id", validateJWT, editPassword);
+router.put(
+  "/passwordEdit/:id",
+  validateJWT,
+  [
+    check("newPassword", "Password must have at least 6 characters").isLength({
+      min: 6,
+    }),
+    validateForm,
+  ],
+  editPassword
+);
 
 router.post("/passwordReset/:id", resetUserPassword);
 
