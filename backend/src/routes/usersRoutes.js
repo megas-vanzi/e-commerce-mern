@@ -41,7 +41,17 @@ router.put(
   editSelf
 );
 
-router.put("/query/:id", validateJWT, validateAdmin, editUser);
+router.put(
+  "/query/:id",
+  validateJWT,
+  validateAdmin,
+  [
+    check("username", "Username required").not().isEmpty(),
+    check("email", "Email required").isEmail(),
+    validateForm,
+  ],
+  editUser
+);
 
 router.delete("/:id", validateJWT, validateAdmin, deleteUser);
 
