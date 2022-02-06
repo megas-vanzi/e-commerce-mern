@@ -228,7 +228,7 @@ export default {
       res.status(200).json(product);
     } catch (e) {
       res.status(500).send({
-        message: "Ocurrió un error al intentar activar",
+        message: "Ocurrió un error al intentar desactivar",
       });
       next(e);
     }
@@ -240,7 +240,7 @@ export default {
       res.status(200).json(product);
     } catch (e) {
       res.status(500).send({
-        message: "Ocurrió un error al intentar activar",
+        message: "Ocurrió un error al intentar eliminar",
       });
       next(e);
     }
