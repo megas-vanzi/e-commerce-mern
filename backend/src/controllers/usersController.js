@@ -141,6 +141,13 @@ export default {
       );
       console.log(userEdit);
       // SEND EMAIL with newRandomPass
+      const subject = "Password Reset";
+      const message = `
+Se ha reseteado su contraseña,
+favor de ingresar con la siguiente: 
+            ${newRandomPass}`;
+      const userEmail = userResetPass.email;
+      sendEmail(userEmail, message, subject);
       res.status(200).send({
         message: "Contraseña reseteada correctamente",
       });
