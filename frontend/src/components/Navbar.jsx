@@ -27,7 +27,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        <Link to="/dashboard">
+        <Link to="/categories">
           <div
             style={{
               width: "80px",
@@ -37,7 +37,21 @@ const Navbar = () => {
               justifyContent: "center",
             }}
           >
-            Dashboard
+            Categories
+          </div>
+        </Link>
+
+        <Link to="/products">
+          <div
+            style={{
+              width: "80px",
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Products
           </div>
         </Link>
 
