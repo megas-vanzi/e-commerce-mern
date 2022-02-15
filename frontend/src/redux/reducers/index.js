@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import dataReducer from "./dataReducer";
-import dashboardReducer from "./dashboardReducer";
+import cartReducer from "./cartReducer";
+import ordersReducer from "./ordersReducer";
+import productsReducer from "./productsReducer";
 
 export default combineReducers({
-  data: dataReducer,
-  dashboard: dashboardReducer,
+  cart: cartReducer,
+  orders: ordersReducer,
+  products: productsReducer,
 });
