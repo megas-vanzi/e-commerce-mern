@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav>
+      <div style={{ display: "flex", justifyContent: "right" }}>
+        <button>Login</button>
+        <button>Logout</button>
+        <button>Register</button>
+      </div>
       <div
         style={{
           display: "flex",
