@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 import models from "../models/models";
 const { User } = models;
+import sendEmail from "../middlewares/sendEmail";
 
 export default {
   register: async (req, res) => {
