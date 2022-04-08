@@ -3,13 +3,15 @@ import ProductCard from "../components/ProductCard";
 import { useSelector } from "react-redux";
 
 const Products = () => {
-  const products = useSelector((state) => state.products.products);
+  //const products = useSelector((state) => state.products.products);
+  let products = [];
 
   return (
     <div>
+      Products:
       {products.map(({ _id, name, price, images, stock }) => {
         return (
-          <LastTenItems
+          <ProductCard
             key={_id}
             _id={_id}
             name={name}
@@ -19,8 +21,6 @@ const Products = () => {
           />
         );
       })}
-      Products
-      <ProductCard />
     </div>
   );
 };

@@ -60,6 +60,20 @@ const Navbar = () => {
           </div>
         </Link>
 
+        <Link to="/sales">
+          <div
+            style={{
+              width: "80px",
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Sales
+          </div>
+        </Link>
+
         <Link to="/about">
           <div
             style={{
