@@ -111,7 +111,6 @@ const CreateSales = () => {
 
   return (
     <div>
-      <NavBar />
       <h1>Crear Producto</h1>
       <form onSubmit={handleSubmit}>
         <div>

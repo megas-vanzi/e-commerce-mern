@@ -59,6 +59,13 @@ const Sales = () => {
           <h3>{selectedProduct.name}</h3>
           {/* <Product />			 */}
           <button onClick={handleEdit}>Editar Producto</button>
+          <button
+            onClick={() => {
+              console.log(`eliminar ${selectedProduct._id}`);
+            }}
+          >
+            Eliminar Producto
+          </button>
           {/* <button onClick={handleDelete}>Eliminar Producto</button>  			 */}
         </>
       )}
